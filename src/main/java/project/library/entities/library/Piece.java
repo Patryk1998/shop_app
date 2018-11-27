@@ -1,4 +1,4 @@
-package project.library.entities;
+package project.library.entities.library;
 
 import lombok.*;
 

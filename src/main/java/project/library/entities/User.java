@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.tomcat.jni.Local;
-import org.springframework.data.repository.NoRepositoryBean;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,12 +24,10 @@ public class User {
     @Column(name = "USER_ID")
     private Long id;
 
-    @NotNull
     @Email
     @Column(name = "EMAIL")
     private String email;
 
-    @NotNull
     @Column(name = "USERNAME")
     private String username;
 
@@ -40,6 +37,18 @@ public class User {
 
     @Column(name = "REGISTRATION_DATE")
     private LocalDate registrationDate = LocalDate.now();
+
+    @Column(name = "BALANCE")
+    private Integer balance;
+
+    @ManyToMany
+    @JoinTable(
+            name = "USERS_ROLES",
+            joinColumns = @JoinColumn(
+                    name = "USER_ID", referencedColumnName = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "ROLE_ID", referencedColumnName = "ROLE_ID"))
+    private List<Role> roles;
 
     public User(String email, String username, String password) {
         this.email = email;

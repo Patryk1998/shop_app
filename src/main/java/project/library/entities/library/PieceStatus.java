@@ -1,7 +1,7 @@
-package project.library.entities;
+package project.library.entities.library;
 
 import lombok.*;
-import project.library.enums.PieceStatusEnum;
+import project.library.entities.library.Piece;
 
 import javax.persistence.*;
 import java.util.List;

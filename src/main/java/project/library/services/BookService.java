@@ -4,15 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import project.library.dao.PieceDao;
 import project.library.dao.TitleDao;
-import project.library.entities.Piece;
-import project.library.entities.PieceStatus;
-import project.library.entities.Title;
+import project.library.entities.library.Piece;
+import project.library.entities.library.PieceStatus;
+import project.library.entities.library.Title;
 import project.library.enums.PieceStatusEnum;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class BookService {

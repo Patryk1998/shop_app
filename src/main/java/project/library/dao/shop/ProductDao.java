@@ -1,14 +1,13 @@
-package project.library.dao;
+package project.library.dao.shop;
+
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import project.library.entities.library.Title;
+import project.library.entities.shop.Product;
 
 import javax.transaction.Transactional;
 
 @Transactional
 @Repository
-public interface TitleDao extends CrudRepository<Title, Long> {
-
-
+public interface ProductDao extends CrudRepository<Product, Long> {
 }

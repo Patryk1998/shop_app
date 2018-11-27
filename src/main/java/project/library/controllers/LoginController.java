@@ -20,6 +20,7 @@ import project.library.services.UserService;
 
 @EnableWebMvc
 @Controller
+@RequestMapping(value = "/user")
 public class LoginController {
 
 
