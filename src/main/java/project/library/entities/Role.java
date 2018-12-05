@@ -6,25 +6,32 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "ROLES")
+@Table(name = "roles")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ROLE_ID")
+    @Column(name = "role_id")
     private Long id;
 
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "role")
+    private String role;
 
-    @ManyToMany(mappedBy = "roles")
-    private Collection<User> users;
+    @OneToMany(mappedBy="role", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<User> users;
+
+    public Role(String role) {
+        this.role = role;
+    }
+    //@ManyToMany(mappedBy = "roles")
+    //private List<User> users;
 
 }

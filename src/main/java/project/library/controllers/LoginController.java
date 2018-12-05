@@ -18,6 +18,9 @@ import project.library.exceptions.LoginException;
 import project.library.exceptions.RegistrationException;
 import project.library.services.UserService;
 
+import java.util.Optional;
+import java.util.logging.Logger;
+
 @EnableWebMvc
 @Controller
 @RequestMapping(value = "/user")
@@ -26,6 +29,21 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String getTest(Model model) {
+        userService.createTestUsers();
+        Optional<User> user = userService.getUserByUsername("asd");
+        model.addAttribute("roles", user.get().getRole());
+        return "mainPage";
+    }
+
+    @RequestMapping(value = "/test1", method = RequestMethod.GET)
+    public String getTest1(Model model) {
+        Optional<User> user = userService.getUserByUsername("asd");
+        model.addAttribute("roles", user.get().getRole());
+        return "mainPage";
+    }
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -38,6 +56,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute(name = "user") UserDto userDto, Model model, BindingResult errors) {
+
         try{
             if(userService.login(userDto)) {
                 return "mainPage";   /// w tym miejscu przenosimy sie do bilbioteki. Zastanowić się nad tym czy tego rzucania wyjątków nie da sie lepiej rozwiazac, bo sama logike juz mam

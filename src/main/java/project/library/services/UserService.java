@@ -3,6 +3,7 @@ package project.library.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import project.library.dao.UserDao;
+import project.library.entities.Role;
 import project.library.entities.User;
 import project.library.entities.dto.UserDto;
 import project.library.enums.ExceptionMessages;
@@ -11,7 +12,9 @@ import project.library.exceptions.RegistrationException;
 import project.library.mapper.Mapper;
 import project.library.validator.Validator;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class UserService {
@@ -66,5 +69,24 @@ public class UserService {
 
     public boolean checkIfEmailExist(String email) {
         return userDao.existsByEmail(email);
+    }
+
+    public void createTestUsers() {
+        User userAdmin = new User("sdasd@asd.com", "asd", "asd");
+        Role roleAdmin = new Role("ROLE_ADMIN");
+//        Set<Role> adminRoles = new HashSet<>();
+//        adminRoles.add(roleAdmin);
+        userAdmin.setRole(roleAdmin);
+
+        Role roleUser = new Role("ROLE_USER");
+        User userUser = new User("sdasd1@asd.com", "asda", "asd");
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(roleUser);
+        userUser.setRole(roleUser);
+
+        userDao.save(userUser);
+        userDao.save(userAdmin);
+
+
     }
 }
