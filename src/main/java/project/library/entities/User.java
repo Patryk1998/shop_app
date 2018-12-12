@@ -53,8 +53,7 @@ public class User {
 //                    name = "user_id", referencedColumnName = "user_id"),
 //            inverseJoinColumns = @JoinColumn(
 //                    name = "role_id", referencedColumnName = "role_id"))
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="role", nullable=false)    //@ElementCollection(targetClass=String.class)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)//@ElementCollection(targetClass=String.class)
     private Role role;
 
     public User(String email, String username, String password) {

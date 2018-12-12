@@ -45,6 +45,12 @@ public class LoginController {
         return "mainPage";
     }
 
+    @RequestMapping(value = "/test2", method = RequestMethod.GET)
+    public String getTest2() {
+
+        return "test";
+    }
+
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLoginForm() {

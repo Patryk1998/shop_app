@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import project.library.dao.UserDao;
 import project.library.services.MyUserDetailsService;
 
+import javax.servlet.http.HttpServlet;
+
 
 @Configuration
 @EnableWebSecurity(debug = true)
@@ -30,10 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers( "/h2**").permitAll()
-                .antMatchers( "/user/test").permitAll()
-                .antMatchers("/user/login**").permitAll()
-                .antMatchers("/shop/shop").hasRole("ADMIN")
+//                .antMatchers( "/h2**").permitAll()
+//                .antMatchers( "/user/test").permitAll()
+//                .antMatchers("/user/login**").permitAll()
+//                .antMatchers("/shop/shop").hasRole("ADMIN")
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/user/login")

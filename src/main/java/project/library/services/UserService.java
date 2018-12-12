@@ -1,8 +1,10 @@
 package project.library.services;
 
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import project.library.dao.UserDao;
+import project.library.dao.shop.RoleDao;
 import project.library.entities.Role;
 import project.library.entities.User;
 import project.library.entities.dto.UserDto;
@@ -12,6 +14,7 @@ import project.library.exceptions.RegistrationException;
 import project.library.mapper.Mapper;
 import project.library.validator.Validator;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -30,6 +33,9 @@ public class UserService {
 
     @Autowired
     private Validator validator;
+
+    @Autowired
+    private RoleDao roleDao;
 
     public boolean addNewAccount(UserDto userDto) throws RegistrationException {
 
@@ -86,6 +92,23 @@ public class UserService {
 
         userDao.save(userUser);
         userDao.save(userAdmin);
+
+        User userAdmin1 = new User("sda1sd@asd.com", "asd1", "asd1");
+        Role roleAdmin1 = new Role("ROLE_ADMIN1");
+//        Set<Role> adminRoles = new HashSet<>();
+//        adminRoles.add(roleAdmin);
+
+
+        Role roleUser1 = new Role("ROLE_USER1");
+        User userUser1 = new User("sda1sd1@asd.com", "asda1", "asd1");
+        Set<Role> userRoles1 = new HashSet<>();
+        userRoles1.add(roleUser1);
+
+        roleDao.save(roleAdmin1);
+        roleDao.save(roleUser1);
+        userDao.save(userUser1);
+        userDao.save(userAdmin1);
+        Collection
 
 
     }
