@@ -1,15 +1,13 @@
-package project.library;
+package project.library.websocket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-
-import java.security.Security;
 
 @SpringBootApplication
-public class Application {
+public class ExampleProjectApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(ExampleProjectApplication.class, args);
 	}
+
 }

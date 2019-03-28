@@ -3,7 +3,7 @@ package project.library.services;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import project.library.entities.User;
+import project.library.entities.login.User;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,11 +16,6 @@ public class MyUserDetails extends User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return  getRoles()
-//                .stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getRole()))
-//                .collect(Collectors.toList());
-
         return Arrays.asList(new SimpleGrantedAuthority(getRole().getRole()));
     }
 

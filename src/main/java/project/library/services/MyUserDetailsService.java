@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import project.library.dao.UserDao;
-import project.library.entities.User;
+import project.library.entities.login.User;
 
 import java.util.Optional;
 

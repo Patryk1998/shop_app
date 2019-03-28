@@ -1,16 +1,17 @@
-package project.library.entities;
+package project.library.entities.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Configuration;
+import project.library.entities.library.Piece;
+import project.library.entities.library.Rent;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -33,6 +34,12 @@ public class User {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
+
     @NotNull
     @Column(name = "password")
     private String password;
@@ -43,22 +50,33 @@ public class User {
     @Column(name = "active")
     private int active;
 
-    @Column(name = "balance")
-    private Integer balance;
-
-    //    @ManyToMany
-//    @JoinTable(
-//            name = "user_roles",
-//            joinColumns = @JoinColumn(
-//                    name = "user_id", referencedColumnName = "user_id"),
-//            inverseJoinColumns = @JoinColumn(
-//                    name = "role_id", referencedColumnName = "role_id"))
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)//@ElementCollection(targetClass=String.class)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
     private Role role;
 
-    public User(String email, String username, String password) {
+    @OneToMany(
+            targetEntity = Rent.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private Set<Rent> rents = new HashSet<>();
+
+    public User(String email, String username, String name, String surname, String password) {
         this.email = email;
         this.username = username;
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.registrationDate = LocalDate.now();
+    }
+
+    public User(Long id, String email, String username, String name, String surname, String password) {
+        this.id = id;
+        this.email = email;
+        this.username = username;
+        this.name = name;
+        this.surname = surname;
         this.password = password;
         this.registrationDate = LocalDate.now();
     }
@@ -71,5 +89,9 @@ public class User {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.role = user.getRole();
+    }
+
+    public void setRent(Rent rent) {
+        rents.add(rent);
     }
 }

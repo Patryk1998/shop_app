@@ -1,6 +1,7 @@
 package project.library.entities.library;
 
 import lombok.*;
+import project.library.entities.login.Role;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -10,23 +11,27 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "PIECES")
+@Table(name = "pieces")
 public class Piece {
 
     @Id
     @GeneratedValue
-    @Column(name = "PIECE_ID")
+    @Column(name = "piece_id")
     private Long id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "STATUS_OF_PIECE",
-            joinColumns = {@JoinColumn(name = "PIECE_ID", referencedColumnName = "PIECE_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "STATUS_ID", referencedColumnName = "STATUS_ID")}
-    )
-    private Set<PieceStatus> status;
+    @Column(name = "availability")
+    private Boolean availability;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "TITLE_ID")
+    @JoinColumn(name = "title_id")
     private Title title;
+
+    @OneToOne(mappedBy = "piece", cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    @JoinColumn(name = "rent_id")
+    private Rent rent;
+
+    public Piece(Boolean availability) {
+        this.availability = availability;
+    }
 }

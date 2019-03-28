@@ -1,19 +1,15 @@
 package project.library.dao;
 
-
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import project.library.entities.Hero;
+import project.library.entities.library.Type;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Transactional
 @Repository
-public interface HeroDao extends CrudRepository<Hero, Integer> {
+public interface TypeDao extends CrudRepository<Type, Long> {
 
-    List<Hero> findAll();
-
-    Optional<Hero> findById(Integer id);
+    Optional<Type> findByName(String name);
 }

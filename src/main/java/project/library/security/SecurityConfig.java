@@ -1,6 +1,7 @@
 package project.library.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,14 +9,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import project.library.dao.UserDao;
 import project.library.services.MyUserDetailsService;
 
-import javax.servlet.http.HttpServlet;
-
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 @EnableJpaRepositories(basePackageClasses = UserDao.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private MyUserDetailsService userDetailsSerive;
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth)
+    public void configure(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.userDetailsService(userDetailsSerive)
                 .passwordEncoder(getPasswordEncoder());
@@ -32,17 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-//                .antMatchers( "/h2**").permitAll()
-//                .antMatchers( "/user/test").permitAll()
-//                .antMatchers("/user/login**").permitAll()
-//                .antMatchers("/shop/shop").hasRole("ADMIN")
-                .anyRequest().permitAll()
+                .antMatchers( "/h2**").permitAll()
+                .antMatchers("/library/**").hasRole("USER")
+                .antMatchers("/console/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/user/login")
-                .loginProcessingUrl("/login/asd")
+                .loginPage("/")
+                .successHandler(myAuthenticationSuccessHandler())
                 .and()
-                .httpBasic();
+                .logout()
+                .logoutSuccessUrl("/");
         http.csrf().disable();
         http.headers().frameOptions().disable();
     }
@@ -60,6 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 return true;
             }
         };
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MyAuthenticationSuccessHandler();
     }
 
 }

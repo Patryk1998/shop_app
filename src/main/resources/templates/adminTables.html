@@ -1,0 +1,90 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/adminPage.css">
+</head>
+<body>
+
+<!--TABLE FOR ACCOUNTS-->
+    <table th:fragment="accountsTable(accounts)" class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">EMAIL</th>
+            <th scope="col">USERNAME</th>
+            <th scope="col">NAME</th>
+            <th scope="col">SURNAME</th>
+            <th scope="col">PASSWORD</th>
+            <th scope="col">REGISTERED</th>
+            <th scope="col">ROLE</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="account : ${accounts}">
+            <td><a th:text="${account.id}"  th:href="@{'/console/accounts/edit/' + ${account.id}}"></a></td>
+            <td th:text="${account.email}"></td>
+            <td th:text="${account.username}"></td>
+            <td th:text="${account.name}"></td>
+            <td th:text="${account.surname}"></td>
+            <td th:text="${account.password}"></td>
+            <td th:text="${account.registrationDate}"></td>
+            <td th:text="${account.role.role}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+<!--TABLE FOR BOOKS-->
+    <table th:fragment="booksTable(books)" class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">TITLE</th>
+            <th scope="col">AUTHOR</th>
+            <th scope="col">YEAR</th>
+            <th scope="col">TYPE</th>
+            <th scope="col">PIECES</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td><a th:text="${book.titleId}" th:href="@{'/console/book/edit/' + ${book.titleId}}"></a></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.spendYear}"></td>
+            <td th:text="${book.type}"></td>
+            <td th:text="${book.pieces}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+<!--TABLE FOR RENTS-->
+    <!--<table th:fragment="rentsTable(rents)" class="table">-->
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th scope="col">ID</th>-->
+            <!--<th scope="col">BOOK</th>-->
+            <!--<th scope="col">USER</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr th:each="rent : ${rents}">-->
+            <!--<td th:text="${rent.id}"></td>-->
+            <!--<td th:text="${account.email}"></td>-->
+            <!--<td th:text="${account.username}"></td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+    <!--</table>-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="/js/mainPage.js"></script>
+</body>
+</html>
+
+
+
+
+

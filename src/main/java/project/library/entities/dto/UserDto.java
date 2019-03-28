@@ -10,6 +10,8 @@ import javax.validation.constraints.Email;
 public class UserDto {
     private String email;
     private String username;
+    private String name;
+    private String surname;
     private String password;
     private String passwordConfirm;
 }

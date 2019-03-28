@@ -1,10 +1,9 @@
 package project.library.dao;
 
 
-import org.hibernate.persister.entity.Queryable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import project.library.entities.User;
+import project.library.entities.login.User;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -20,5 +19,7 @@ public interface UserDao extends CrudRepository<User, Long> {
     User save(User user);
 
     Optional<User> findByUsername(String username);
+
+    Optional<User> findById(Long id);
 
 }
