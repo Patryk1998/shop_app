@@ -11,6 +11,7 @@ import project.library.entities.login.User;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -29,6 +30,9 @@ public class Rent {
     @Column(name = "rent_id")
     private Long id;
 
+    @Column(name = "rent_date")
+    private LocalDate rentDate;
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "piece_id")
     private Piece piece;
@@ -40,5 +44,6 @@ public class Rent {
     public Rent(Piece piece, User user) {
         this.piece = piece;
         this.user = user;
+        rentDate = LocalDate.now();
     }
 }

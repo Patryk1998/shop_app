@@ -74,13 +74,16 @@ public class UserService {
         else return true;
     }
 
-    public User getUserById(Long id) {
-        return userDao.findById(id).get();
+    public void changePassword(Long id, UserDto userDto) throws Exception {
+        User user = userDao.findById(id).get();
+
+        if(user.getPassword().equals(userDto.getPassword())) {
+            user.setPassword(userDto.getPasswordConfirm());
+        } else throw new Exception("Old password is incorrect!");
+
+        userDao.save(user);
     }
 
-    public Iterable<User> getUsers() {
-        return userDao.findAll();
-    }
 
     public void changeUser(Long id, UserDto userDto) {
         User user = userDao.findById(id).get();
@@ -109,9 +112,12 @@ public class UserService {
         return roleDao.findByRole(role).orElse(new Role(role));
     }
 
-    public void getUserIdFromSession(HttpServletRequest request) {
-        UsernamePasswordAuthenticationToken asd = (UsernamePasswordAuthenticationToken) request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
-        MyUserDetails userDetails = (MyUserDetails) asd.getDetails();
+    public User getUserById(Long id) {
+        return userDao.findById(id).get();
+    }
+
+    public Iterable<User> getUsers() {
+        return userDao.findAll();
     }
 
     public void createTestUsers() {

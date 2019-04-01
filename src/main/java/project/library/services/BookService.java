@@ -43,7 +43,7 @@ public class BookService {
     public List<TitleDtoGet> filterBooks(List<Title> titles) {
         return titles.stream()
                     .filter(title -> title.getPieces().size()>0)
-                    .filter(title -> title.getPieces().stream().anyMatch(piece -> piece.getAvailability()==true))
+                    .filter(title -> title.getPieces().stream().anyMatch(piece -> piece.getRent()==null))
                     .map(title -> mapper.titleToTitleDto(title))
                     .collect(Collectors.toList());
     }

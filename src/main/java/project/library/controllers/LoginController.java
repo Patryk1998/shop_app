@@ -36,7 +36,7 @@ public class LoginController {
     public String getTest(Model model) {
         userService.createTestUsers();
         model.addAttribute("titles", titleDao.findAll());
-        return "mainPage";
+        return "userPage";
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)

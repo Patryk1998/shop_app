@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/adminPage.css">
+</head>
+<body>
+    <!-- pattern for books -->
+    <div class="row" th:fragment="booksTable(titles)">
+        <div class="col-md-3" id="film-pattern"  th:each="t : ${titles}">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <p class="card-text" style="text-align:center;" th:text = ${t.title}></p>
+                    <p class="card-text" style="text-align:center;" th:text = ${t.author}></p>
+                    <p class="card-text" style="text-align:center;" th:text = ${t.spendYear}></p>
+                    <p class="card-text" style="text-align:center;" th:text = ${t.type}></p>
+                    <div class="d-flex justify-content-between">
+                        <div class="btn-group">
+                            <button th:onclick="'window.location.href = \'' + @{/library/book/rent/}+${t.titleId} + '\''" class="btn btn-sm btn-outline-secondary">Rent</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--TABLE FOR RENTS-->
+    <table th:fragment="rentsTable(rents)" class="table">
+        <thead>
+        <tr>
+            <th scope="col">RENT DATE</th>
+            <th scope="col">BOOK</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rent : ${rents}">
+            <td th:text="${rent.rentDate}"></td>
+            <td th:text="${rent.bookName}"></td>
+            <td><button th:onclick="'window.location.href = \'' + @{/library/book/back/{id}(id=${rent.rentId})} + '\''" class="btn btn-primary">Back</button></td>
+        </tr>
+        </tbody>
+    </table>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="/js/mainPage.js"></script>
+</body>
+</html>
+
+
+
+
+

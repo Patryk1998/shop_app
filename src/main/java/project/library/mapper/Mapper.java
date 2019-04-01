@@ -1,8 +1,10 @@
 package project.library.mapper;
 
 import org.springframework.stereotype.Component;
+import project.library.entities.dto.RentDto;
 import project.library.entities.dto.TitleDtoGet;
 import project.library.entities.dto.TitleDtoPost;
+import project.library.entities.library.Rent;
 import project.library.entities.library.Title;
 import project.library.entities.login.User;
 import project.library.entities.dto.UserDto;
@@ -22,6 +24,10 @@ public class Mapper {
 
     public Title titleDtoToTitle(TitleDtoPost titleDto) {
         return new Title(titleDto.getTitle(), titleDto. getAuthor(), titleDto.getSpendYear());
+    }
+
+    public RentDto rentToRentDto(Rent rent) {
+        return new RentDto(rent.getId().toString(), rent.getRentDate().toString(), rent.getPiece().getTitle().getTitle(), rent.getUser().getId().toString());
     }
 
 }
